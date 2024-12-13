@@ -3,19 +3,20 @@ from Config import Config
 from States import States
 from Validations import Validations
 from Keyboards import Keyboards
-from MLCreatingPostScript import GeneratePost
+from MachineLearningRepository.MLCreatingPostScript import GeneratePost
 
 bot = Bot(token=Config.token)
 
 storage = {}
 
-@bot.on.message(text="Начать", payload={"button":"subscribed"})
+@bot.on.message(text="Начать")
+@bot.on.message(payload={"button":"subscribed"})
 async def start(message: Message):
     is_member = await bot.api.groups.is_member(group_id = 228616233, user_id = message.from_id)
 
     hello_text = Config.hello_text
     if is_member:
-        keyboard = Keyboards.get_post_type_keyboard()
+        keyboard = Keyboards.get_start_keyboard()
         await bot.state_dispenser.set(message.peer_id, States.START_INPUT)
         await message.answer(message = hello_text, keyboard = keyboard)
     else:
@@ -53,7 +54,8 @@ async def count_of_symbols_handler(message: Message):
         post = GeneratePost(storage["post_description"], storage["language"], storage["max_length"]).create_post()
         await message.answer(post)
         storage.clear()
-        await message.answer("Спасибо за то, что используете нас!")
+        keyboard = Keyboards.get_start_keyboard()
+        await message.answer("Спасибо за то, что используете нас!", keybaord = keyboard)
     else:
         await message.answer(message = "Некорректный ввод, введите количество символов еще раз")
 

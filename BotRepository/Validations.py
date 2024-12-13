@@ -9,14 +9,9 @@ class Validations:
         return False
     
     def count_of_symbols_is_valid(count):
-        result = False
-        try:
-            int(count)
-            result = True
-        except:
-            result = False
-        finally:
-            return result
+        if str(count).isdigit():
+            return True
+        return False
     
     def language_is_valid(language):
         languages = ["Русский", "Английский"]

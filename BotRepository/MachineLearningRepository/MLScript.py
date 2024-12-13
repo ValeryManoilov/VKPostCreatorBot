@@ -1,19 +1,3 @@
-# import pandas as pd
-# # from sklearn.model_selection import train_test_split
-# # from langchain.llms import huggingface_pipeline
-# # from transformers import BertTokenizer, BertModel
-
-
-# # dataset = pd.read_csv("dataset(test).csv")
-
-# # dataset.columns = ["text"]
-
-# # texts = dataset["text"].to_list()
-
-# # train_texts, test_texts = train_test_split(texts, test_size=0.2)
-
-# # print(len(train_texts))
-
 from transformers import BertTokenizer, BertModel
 import torch
 import pandas as pd
